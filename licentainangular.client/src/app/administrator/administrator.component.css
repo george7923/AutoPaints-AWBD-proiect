@@ -1,0 +1,366 @@
+h2 {
+  margin-top: 24px;
+  color: #333;
+  text-align: center;
+  font-size: 2rem;
+}
+
+h3 {
+  margin-top: 28px;
+  color: #4174b3;
+  font-size: 1.3rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 98%;
+  margin: 8px auto 24px auto;
+  background: #fff;
+  box-shadow: 0 2px 12px #0001;
+}
+
+th, td {
+  padding: 12px 10px;
+  border: 1px solid #d1d1d1;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+th {
+  background-color: #e3eefa;
+  color: #2365ad;
+  font-weight: 600;
+}
+
+tr:nth-child(even) {
+  background-color: #f7fbff;
+}
+
+tr:hover {
+  background-color: #e6f0fb;
+}
+
+select {
+  padding: 5px 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #b9b9b9;
+  background: #f6f6ff;
+}
+
+option {
+  font-size: 1rem;
+}
+
+.error {
+  color: #e71d36;
+  font-weight: 600;
+  margin: 10px 0;
+  text-align: center;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid #e3eefa;
+  margin: 18px 0;
+}
+
+@media (max-width: 700px) {
+  table, th, td {
+    font-size: 0.93rem;
+    padding: 7px 4px;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+  }
+}
+.reduceri-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.2rem 2rem;
+  margin: 1.5rem auto 2rem auto;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: flex-start;
+}
+
+  .reduceri-box label {
+    font-weight: 500;
+    color: #23508f;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .reduceri-box input,
+  .reduceri-box select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #c7c7d0;
+    font-size: 1rem;
+    margin-top: 0.18rem;
+  }
+
+  .reduceri-box button {
+    background: #379b36;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 24px;
+    margin-top: 0.7rem;
+    cursor: pointer;
+    font-size: 1.08rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px #45e35423;
+    transition: background .18s;
+  }
+
+    .reduceri-box button:hover {
+      background: #217e21;
+    }
+
+.reducere-message {
+  margin-left: 0.5rem;
+  font-size: 1.03rem;
+  font-weight: 500;
+  color: #3e962e;
+}
+.pret-vechi-box {
+  margin-top: 0.6rem;
+  color: #b90000;
+  font-weight: 500;
+}
+
+.pret-vechi {
+  color: #b90000;
+  text-decoration: line-through;
+  margin-left: 0.25rem;
+}
+
+.pret-curent {
+  color: #3e962e;
+  font-weight: bold;
+  margin-left: 0.25rem;
+}
+
+.admin-products-box {
+  background: #f6fafd;
+  border-radius: 14px;
+  padding: 1.7rem 2.4rem;
+  margin: 2rem auto 2.5rem auto;
+  max-width: 540px;
+  box-shadow: 0 4px 18px #bdd6ff27;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  align-items: flex-start;
+}
+
+  .admin-products-box h2 {
+    color: #1b517b;
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    text-align: left;
+  }
+
+  .admin-products-box label {
+    font-weight: 500;
+    color: #1b517b;
+    margin-top: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.08rem;
+  }
+
+  .admin-products-box input[type="text"],
+  .admin-products-box input[type="number"],
+  .admin-products-box select {
+    padding: 7px 12px;
+    border-radius: 7px;
+    border: 1px solid #d2dbee;
+    font-size: 1rem;
+    margin-top: 0.13rem;
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    transition: border .18s;
+  }
+
+    .admin-products-box input[type="text"]:focus,
+    .admin-products-box input[type="number"]:focus,
+    .admin-products-box select:focus {
+      border: 1.5px solid #4691f6;
+      outline: none;
+    }
+
+  .admin-products-box input[type="file"] {
+    margin-top: 0.4rem;
+  }
+
+  .admin-products-box img {
+    display: block;
+    margin: 0.2rem 0 0.3rem 0;
+    max-width: 170px;
+    max-height: 100px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px #89b4ee34;
+    background: #e8f0ff;
+    object-fit: contain;
+  }
+
+  .admin-products-box button {
+    background: #1b6b45;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 28px;
+    margin-top: 0.6rem;
+    cursor: pointer;
+    font-size: 1.09rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px #0e7d2a18;
+    transition: background .18s;
+  }
+
+    .admin-products-box button:hover {
+      background: #11512b;
+    }
+
+    .admin-products-box button[style*="background:#d9534f"] {
+      background: #d9534f !important;
+      margin-left: 14px;
+    }
+
+      .admin-products-box button[style*="background:#d9534f"]:hover {
+        background: #b71d1d !important;
+      }
+
+.admin-message {
+  margin-left: 0.7rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #178d38;
+}
+
+@media (max-width: 800px) {
+  .admin-products-box {
+    max-width: 99vw;
+    padding: 1.1rem 0.7rem;
+  }
+
+    .admin-products-box img {
+      max-width: 98vw;
+      height: auto;
+    }
+
+    .admin-products-box button {
+      width: 100%;
+      padding: 10px 0;
+      margin-left: 0 !important;
+    }
+}
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+  .user-table th, .user-table td {
+    border: 1px solid #eee;
+    padding: 8px;
+    text-align: center;
+  }
+
+  .user-table th {
+    background: #f8f8f8;
+  }
+
+  .user-table select {
+    margin-right: 6px;
+  }
+
+  .user-table button {
+    padding: 3px 14px;
+    font-size: 0.9em;
+  }
+.preturi-panel {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.pret-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ccc;
+  flex-wrap: wrap;
+}
+
+.pret-col {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+  .pret-col label {
+    font-size: 13px;
+    color: #555;
+    min-width: 70px;
+  }
+
+  .pret-col input {
+    padding: 4px 6px;
+    font-size: 14px;
+    width: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+    .pret-col input[disabled] {
+      background-color: #eee;
+      color: #999;
+    }
+
+  .pret-col.actiuni {
+    gap: 8px;
+  }
+
+    .pret-col.actiuni button {
+      font-size: 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+      .pret-col.actiuni button:hover {
+        transform: scale(1.1);
+      }
+
+      .pret-col.actiuni button:disabled {
+        color: #ccc;
+        cursor: not-allowed;
+      }
+
+.produs-section {
+  margin-bottom: 20px;
+}
+
+  .produs-section h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #222;
+  }

@@ -1,0 +1,65 @@
+<div class="comanda-container">
+  <!-- Afisare Produse din Comanda -->
+  <div class="products-section" *ngIf="products.length > 0; else noProducts">
+    <h2 class="section-header">Produse in Comanda</h2>
+    <div class="products-grid">
+      <div class="product-card" *ngFor="let product of products">
+        <div class="product-card-content">
+          <!-- Imagine produs (cauta imaginea in maparea categoryImages sau fallback) -->
+          <img [src]="categoryImages[product.Categorie] || 'assets/default.png'"
+               [alt]="product.Nume"
+               class="product-image" />
+          <h3 class="product-title">{{ product.Nume }}</h3>
+          <p class="product-description">{{ product.Descriere }}</p>
+          <p class="product-price">{{ product.Pret | currency: 'RON' }}</p>
+          <div class="product-info">
+            <span *ngIf="product.EsteSpray">Spray: Da</span>
+            <span *ngIf="!product.EsteSpray">Spray: Nu</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Daca nu exista produse, afisam un mesaj -->
+  <ng-template #noProducts>
+    <div class="no-products">
+      <h3>Nu exista produse in aceasta comanda.</h3>
+    </div>
+  </ng-template>
+
+  <!-- Afisam totalul local -->
+  <div class="total-section">
+    <h3 class="total-label">Total (calculat local): {{ total | currency: 'RON' }}</h3>
+  </div>
+
+  <!-- Detalii Comanda (ID, ETA, Adresa, etc.) -->
+  <div class="comanda-details">
+    <h2 class="section-header">Detalii Comanda</h2>
+    <ul class="comanda-info">
+      <li><strong>ID Comanda:</strong> {{ comanda.IdComanda }}</li>
+      <li><strong>ETA (Data Livrare):</strong> {{ comanda.ETA | date:'medium' }}</li>
+
+
+      <li *ngIf="comanda.Adresa">
+        <strong>Adresa:</strong>
+        {{ comanda.Adresa?.Tara || 'N/A' }},
+        {{ comanda.Adresa?.Localitate || 'N/A' }},
+        {{ comanda.Adresa?.Strada || 'N/A' }}
+      </li>
+
+
+      <li *ngIf="comanda.User">
+        <strong>Nume Client:</strong> {{ persoana?.Nume || 'N/A' }}
+      </li>
+    </ul>
+
+    <!-- Buton pt. a anula comanda (de exemplu) -->
+    <button (click)="anuleazaComanda()" class="btn-cancel">Anuleaza Comanda</button>
+  </div>
+
+  <!-- Buton "inapoi" -->
+  <div class="back-button">
+    <button (click)="navigateToIstoricComenzi()" class="btn-back">inapoi la Istoric</button>
+  </div>
+</div>

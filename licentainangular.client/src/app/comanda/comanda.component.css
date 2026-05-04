@@ -1,0 +1,161 @@
+/* Container general */
+.comanda-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* Titlul sectiunilor */
+.section-header {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Grid produse */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+  .product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+.product-card-content {
+  padding: 16px;
+  text-align: center;
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
+
+.product-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0;
+}
+
+.product-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 5px 0;
+}
+
+.product-price {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #27ae60;
+  margin-top: 5px;
+}
+
+/* No Products Section */
+.no-products {
+  text-align: center;
+  padding: 20px;
+}
+
+  .no-products h3 {
+    font-size: 1.5rem;
+    color: #888;
+  }
+
+/* Sectiunea total */
+.total-section {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.total-label {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #27ae60;
+  margin-top: 20px;
+}
+
+/* Detalii comanda */
+.comanda-details {
+  margin-top: 40px;
+}
+
+.comanda-info {
+  list-style: none;
+  padding: 0;
+}
+
+  .comanda-info li {
+    font-size: 1rem;
+    color: #444;
+    margin: 10px 0;
+  }
+
+    .comanda-info li strong {
+      color: #333;
+    }
+
+/* Buton anulare */
+.btn-cancel {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  background-color: #dc3545;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+  .btn-cancel:hover {
+    background-color: #c82333;
+  }
+
+/* Buton "inapoi" */
+.back-button {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-back {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+  .btn-back:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+  }
+
+  .btn-back:active {
+    background-color: #004494;
+    transform: translateY(1px);
+  }

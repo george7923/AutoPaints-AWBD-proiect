@@ -1,0 +1,35 @@
+<div class="chat-container">
+  <h2 class="chat-title">Talk Chat Bot</h2>
+
+  <!-- Zona pentru mesaje -->
+  <div class="messages-container">
+    <div *ngFor="let msg of messages" class="message-row" [ngClass]="{'bot': msg.role === 'bot', 'user': msg.role === 'user'}">
+      <img [src]="msg.role === 'bot' ? 'assets/ChatBot.png' : 'assets/user.png'"
+           [alt]="msg.role === 'bot' ? 'Chatbot' : 'User'" class="avatar" />
+      <div class="message">
+        {{ msg.content }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Câmpul de input și butoane -->
+  <div class="input-container">
+    <textarea [(ngModel)]="prompt"
+              rows="2"
+              placeholder="Scrie un mesaj..."
+              class="input-field"></textarea>
+    <button (click)="sendPrompt()" [disabled]="loading" class="send-button">
+      Trimite
+    </button>
+  </div>
+
+  <!-- Buton pentru verificarea conexiunii -->
+  <div class="connection-check">
+    <button (click)="checkConnection()" class="check-connection-button">
+      Verifică conexiunea
+    </button>
+    <div *ngIf="connectionStatus" class="connection-status">
+      <p>{{ connectionStatus }}</p>
+    </div>
+  </div>
+</div>

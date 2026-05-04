@@ -1,0 +1,17 @@
+<!-- vopsea-ai.component.html -->
+<div class="vopsea-ai-container">
+  <h2>Analiza Vopselei și Metalizării</h2>
+  <input type="file" (change)="onFileSelected($event)" />
+  <button (click)="upload()" [disabled]="!selectedFile">Analizează</button>
+
+  <div *ngIf="imagePreviewUrl" style="margin-top: 1rem;">
+    <p><strong>Imagine selectată:</strong></p>
+    <img [src]="imagePreviewUrl" alt="Preview" style="max-width: 400px; border: 1px solid #ccc;" />
+  </div>
+
+  <div *ngIf="result" class="result-container">
+    <p><strong>Culoare dominantă:</strong> {{ result.dominantColor }}</p>
+    <p><strong>Valori medii RGB:</strong> {{ result.avgColor }}</p>
+    <p><strong>Metalizată:</strong> {{ result.metallic ? 'Da' : 'Nu' }}</p>
+  </div>
+</div>

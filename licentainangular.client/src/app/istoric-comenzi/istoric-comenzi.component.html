@@ -1,0 +1,77 @@
+<div class="comenzi-container">
+  <div class="comenzi-header">
+    <h2 class="text-4xl font-bold text-center">Istoric Comenzi</h2>
+
+    <div class="filter-buttons">
+      <button class="btn-filter"
+              [class.active]="edFilter === 'all'"
+              (click)="setFilter('all')">
+        Toate Comenzile
+      </button>
+      <button class="btn-filter"
+              [class.active]="edFilter === 'delivered'"
+              (click)="setFilter('delivered')">
+        Livrate
+      </button>
+      <button class="btn-filter"
+              [class.active]="edFilter === 'onTheWay'"
+              (click)="setFilter('onTheWay')">
+        Pe Drum
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="filteredComenzi.length > 0; else emptyComenzi">
+    <div class="comenzi-grid">
+      <div class="comanda-card"
+           *ngFor="let comanda of filteredComenzi"
+           [class.delivered]="isDelivered(comanda)"
+           [class.onTheWay]="!isDelivered(comanda)">
+        <div class="comanda-card-content">
+          <h3 class="comanda-title">Nr. Comandă: {{ comanda.idComanda }}</h3>
+
+          <div class="comanda-info">
+            <p>
+              <strong>Adresă:</strong>
+              {{ comanda.strada }} nr. {{ comanda.nr }},
+              {{ comanda.localitate }}, {{ comanda.judet }}, {{ comanda.tara }}
+              <span *ngIf="comanda.bloc">, Bloc {{ comanda.bloc }}</span>
+              <span *ngIf="comanda.scara">, Scara {{ comanda.scara }}</span>
+              <span *ngIf="comanda.etaj">, Etaj {{ comanda.etaj }}</span>
+              <span *ngIf="comanda.apartament">, Ap. {{ comanda.apartament }}</span>
+            </p>
+
+            <p><strong>Dată Emitere:</strong> {{ comanda.eta | date:'medium' }}</p>
+            <p><strong>Total:</strong> {{ comanda.pretTotal | currency:'RON' }}</p>
+            <p>
+              <strong>Status:</strong>
+              <span class="comanda-status">
+                {{ isDelivered(comanda) ? 'Livrat' : 'Pe drum' }}
+              </span>
+            </p>
+          </div>
+
+          <div class="produse-comanda">
+            <h4>Produse Comandate:</h4>
+            <ul>
+              <li *ngFor="let produs of comanda.produse">
+                {{ produs.numeProdus }} (x{{ produs.cantitate }})
+              </li>
+            </ul>
+          </div>
+
+          <button class="comanda-button" (click)="descarcaBon(comanda.idComanda)">
+            Detalii Comandă
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #emptyComenzi>
+    <div class="empty-comenzi">
+      <h2>Nu există comenzi în această categorie.</h2>
+    </div>
+  </ng-template>
+</div>

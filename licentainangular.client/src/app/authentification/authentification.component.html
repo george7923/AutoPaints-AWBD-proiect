@@ -1,0 +1,91 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Login to Car Painting Store</h2>
+
+    <!-- Success message display -->
+    <div *ngIf="successMessage" class="alert-success">
+      {{ successMessage }}
+    </div>
+
+    <!-- Login form -->
+    <form (ngSubmit)="onSubmit()">
+      <!-- Username -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text"
+               id="username"
+               class="form-control"
+               [(ngModel)]="Username"
+               name="username"
+               required
+               placeholder="Enter your username" />
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password"
+               id="password"
+               class="form-control"
+               [(ngModel)]="Password"
+               name="password"
+               required
+               placeholder="Enter your password" />
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <!-- Display Role (if logged in) -->
+    <div *ngIf="Role" class="role-info">
+      <p>Logged in as: <strong>{{ Role }}</strong></p>
+    </div>
+
+    <!-- Display error message below the form -->
+    <div *ngIf="errorMessage" class="form-error-message">
+      {{ errorMessage }}
+    </div>
+
+    <p class="register-link">
+      Don't have an account? <a routerLink="/register">Register</a>
+    </p>
+    <p class="register-link">
+      <a (click)="toggleForgotPassword()" style="cursor:pointer;">Ai uitat parola?</a>
+    </p>
+
+    <div *ngIf="showForgotPassword">
+      <div class="form-group">
+        <label>Username</label>
+        <input [(ngModel)]="usernameForReset" class="form-control" placeholder="Username" />
+      </div>
+      <button class="btn" (click)="sendVerificationCode()">Trimite codul pe email</button>
+      <p *ngIf="emailSentMessage">{{ emailSentMessage }}</p>
+
+      <div *ngIf="codeSent && !codeVerified" class="form-group">
+        <label>Cod primit</label>
+        <input [(ngModel)]="userInputCode" class="form-control" placeholder="Cod" />
+        <button class="btn" (click)="verifyCode()">Verifică codul</button>
+      </div>
+
+      <div *ngIf="codeVerified">
+        <div class="form-group">
+          <label>Parolă nouă</label>
+          <input [(ngModel)]="newPassword" type="password" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label>Confirmare parolă</label>
+          <input [(ngModel)]="confirmPassword" type="password" class="form-control" />
+        </div>
+        <button class="btn" (click)="resetPassword()">Resetează parola</button>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+
+
+</div>

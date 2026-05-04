@@ -1,0 +1,48 @@
+
+<!-- Header Section -->
+<div class="text-center my-8">
+  <h1 class="text-6xl font-bold" style="font-family: 'Source Sans Pro', sans-serif; margin-bottom: 20px;">
+    Bine ați venit la AutoPaints!!
+  </h1>
+  <h2 class="text-4xl font-bold" style="font-family: 'Source Sans Pro', sans-serif; margin-bottom: 40px;">
+    Reduceri la produsele noastre!
+  </h2>
+</div>
+
+<!-- Grid-ul de produse cu reducere -->
+<div class="product-grid">
+  <div class="product-card"
+       *ngFor="let product of produseReducere"
+       (click)="navigateToProduct(product)">
+    <div class="product-card-content">
+      <img [src]="product.imagine" [alt]="product.nume"
+           class="w-full h-32 object-cover mb-4" />
+
+      <h3 class="product-title text-lg font-semibold">{{ product.nume }}</h3>
+      <p class="product-description text-sm text-gray-600">{{ product.descriere }}</p>
+
+      <!-- Preturile: vechi (taiat) și nou (verde) -->
+      <div class="preturi-reducere">
+        <span class="pret-vechi" *ngIf="product.pretVechi && product.pretVechi > product.pretReducere">
+          {{ product.pretVechi | number:'1.2-2' }} lei
+        </span>
+        <span class="pret-nou">
+          {{ product.pretReducere | number:'1.2-2' }} lei
+        </span>
+      </div>
+
+
+      <p class="product-vendor text-base font-medium">
+        Vândut de: {{ product.vendor }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Mesaj cand nu exista produse cu reducere -->
+<div *ngIf="produseReducere.length === 0"
+     class="no-products-message text-center">
+  <p class="text-2xl font-bold text-gray-600">
+    Momentan nu sunt produse cu reducere
+  </p>
+</div>

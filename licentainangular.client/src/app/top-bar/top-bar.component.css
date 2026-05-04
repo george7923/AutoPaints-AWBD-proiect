@@ -1,0 +1,46 @@
+/* Top Bar */
+.top-bar {
+  background-color: #f3f3f3;
+  padding: 0.5rem 0; 
+}
+
+  .top-bar .container {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    max-width: 100%; 
+    padding: 0 1rem; 
+  }
+
+
+  .top-bar .flex {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .top-bar a {
+    display: flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none; 
+    transition: color 0.3s ease; 
+  }
+
+
+    .top-bar a img {
+      height: 24px; 
+      width: 24px;
+      margin: 0; 
+      padding: 0; 
+      display: inline-block; 
+    }
+
+
+    .top-bar a:hover {
+      color: #FF4B2B; 
+    }
+
+      .top-bar a:hover img {
+        filter: brightness(1.3); 
+      }

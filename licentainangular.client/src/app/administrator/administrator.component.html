@@ -1,0 +1,231 @@
+<h2>Comenzi pe utilizatori</h2>
+<div *ngIf="loading">Se încarcă...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<div *ngFor="let user of users">
+  <h3>
+    Utilizator: {{ user.username || ('#' + user.idUser) }}
+  </h3>
+  <table *ngIf="userComenzi[user.idUser] && userComenzi[user.idUser].length > 0" border="1" cellpadding="8">
+    <tr>
+      <th>Id Comandă</th>
+      <th>Preț Total</th>
+      <th>Livrată?</th>
+      <th>Plată</th>
+    </tr>
+    <tr *ngFor="let comanda of userComenzi[user.idUser]">
+      <td>{{ comanda.idComanda }}</td>
+      <td>{{ comanda.pretTotal | number:'1.2-2' }} lei</td>
+      <td>
+        <span [style.color]="comanda.livrata ? 'green' : 'red'">
+          {{ comanda.livrata ? 'Da' : 'Nu' }}
+        </span>
+        <select [value]="comanda.livrata ? 'Da' : 'Nu'" (change)="onLivrareChange(comanda, $any($event.target).value)">
+          <option value="Nu">Nu</option>
+          <option value="Da">Da</option>
+        </select>
+
+      </td>
+      <td>{{ comanda.plata }}</td>
+    </tr>
+  </table>
+  <p *ngIf="userComenzi[user.idUser] && userComenzi[user.idUser].length === 0">Fără comenzi.</p>
+  <hr>
+</div>
+<!-- SECTIUNE REDUCERI -->
+<div class="reduceri-box">
+  <h2>Schimbă prețul la produse!</h2>
+
+  <!-- Selector produs -->
+  <label>
+    Produs:
+    <select [(ngModel)]="reducereProdusId"
+            #selectProdus
+            (change)="onSelectProdusReducere(+selectProdus.value)">
+      <option [ngValue]="null">Alege produs...</option>
+
+      <ng-container *ngFor="let produs of produse">
+        <option *ngIf="produs.idUser !== null" [value]="produs.idProdus">
+          {{ produs.nume }}
+        </option>
+      </ng-container>
+    </select>
+  </label>
+
+
+  <!-- Afisare pret vechi si nou pentru produsul selectat -->
+  <div *ngIf="pretReducere">
+    <div *ngIf="pretReducere.pretVechi">
+      Preț vechi:
+      <span class="pret-vechi">
+        {{ pretReducere.pretVechi.Pret || pretReducere.pretVechi.pret | number:'1.2-2' }} lei
+      </span>
+    </div>
+    <div *ngIf="pretReducere.pretNou">
+      Preț nou:
+      <span class="pret-curent">
+        {{ pretReducere.pretNou.Pret || pretReducere.pretNou.pret | number:'1.2-2' }} lei
+      </span>
+    </div>
+  </div>
+
+
+  <!-- Input noul pret -->
+  <label>
+    Preț nou:
+    <input type="number" [(ngModel)]="pretNou" min="1" />
+  </label>
+
+  <!-- Input data expirare optionala -->
+  <label>
+    Dată expirare reducere (opțional, doar pentru reduceri sau scumpiri temporare!):
+    <input type="date" [(ngModel)]="dataExpirare" />
+  </label>
+
+  <!-- Buton aplicare reducere -->
+  <button (click)="aplicaReducere()">Aplică reducere</button>
+
+  <!-- Mesaj succes/eroare -->
+  <span class="reducere-message">{{ mesajReducere }}</span>
+</div>
+
+<!-- === Panel pentru preturi existente === -->
+<div class="preturi-panel">
+  <h3>Prețuri existente</h3>
+
+  <div *ngFor="let produs of produse" class="produs-section">
+    <div *ngIf="produs.idUser !== null" class="produs-section">
+      <h4>{{ produs.nume }}</h4>
+
+      <div *ngIf="preturiPeProdus.get(produs.idProdus)?.length; else faraPreturi">
+        <div *ngFor="let pret of preturiPeProdus.get(produs.idProdus)" class="pret-row">
+          <div class="pret-col">
+            <label>Preț:</label>
+            <input [(ngModel)]="pret.pret" type="number" step="0.01" />
+          </div>
+
+          <div class="pret-col">
+            <label>Comision:</label>
+            <input [(ngModel)]="pret.comision" type="number" step="0.1" />
+          </div>
+
+          <div class="pret-col">
+            <label>Expiră la:</label>
+            <input [(ngModel)]="pret.dataExpirare"
+                   type="date"
+                   [disabled]="!pret.dataExpirare" />
+          </div>
+
+          <div class="pret-col actiuni">
+            <button (click)="salveazaPret(pret)">✅</button>
+            <button (click)="stergePret(pret)"
+                    [disabled]="!poateFiSters(produs.idProdus, pret)">
+              ❌
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ng-template #faraPreturi>
+        <p class="no-preturi">Nu există prețuri pentru acest produs.</p>
+      </ng-template>
+
+      <hr />
+    </div>
+    </div>
+  </div>
+
+
+
+<div class="admin-products-box">
+  <h2>Administrare produse</h2>
+  <label>
+    Selectează produs:
+    <select [(ngModel)]="produsSelectatId"
+            (change)="produsSelectatId && onSelectProdusEdit(+produsSelectatId)">
+      <option [ngValue]="null">Alege produs...</option>
+
+      <ng-container *ngFor="let produs of produse">
+        <option *ngIf="produs.idUser !== null" [value]="produs.idProdus">
+          {{ produs.nume }}
+        </option>
+      </ng-container>
+    </select>
+  </label>
+
+
+  <div *ngIf="produsEdit">
+    <!-- Imagine actuala si upload nou -->
+    <div>
+      <label>Imagine curentă:</label>
+      <img [src]="imgPreview || getProductImage(produsEdit)" alt="Imagine produs" width="120" style="margin:8px 0;">
+      <input type="file" (change)="onImagineChange($event)" accept="image/*" />
+      <button (click)="stergeImagine()" type="button">Șterge imagine</button>
+    </div>
+
+    <label>
+      Nume produs:
+      <input type="text" [(ngModel)]="produsEdit.nume" placeholder="Nume nou (sau lasă nemodificat)" />
+    </label>
+
+    <label>
+      Descriere:
+      <input type="text" [(ngModel)]="produsEdit.descriere" placeholder="Descriere nouă (sau lasă nemodificat)" />
+    </label>
+
+    <label>
+      Categorie:
+      <input type="text" [(ngModel)]="produsEdit.denumireCategorie" placeholder="Categorie (ex: chit auto)" />
+      <small class="hint">Se va crea automat dacă nu există deja.</small>
+    </label>
+
+    <label>
+      Este spray?
+      <input type="checkbox" [(ngModel)]="produsEdit.esteSpray" />
+    </label>
+
+    <label>
+      Disponibil:
+      <input type="checkbox" [(ngModel)]="produsEdit.valabil" />
+    </label>
+
+    <label>
+      Cantitate subproduse:
+      <input type="number" [(ngModel)]="cantitateSubprodus" min="0" placeholder="Lasă nemodificat dacă nu schimbi" />
+    </label>
+
+    <label>
+      ID User asociat:
+      <input type="number" [(ngModel)]="produsEdit.idUser" min="1" placeholder="Lasă nemodificat dacă nu schimbi" />
+    </label>
+
+    <button (click)="updateProdus()" style="margin-top: 1.3rem;">Salvează modificările</button>
+    <span class="admin-message">{{ mesajProdus }}</span>
+  </div>
+</div>
+
+<div *ngIf="getRolUser() === 'Owner'" class="admin-products-box">
+  <h2>Modifică roluri utilizatori</h2>
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Utilizator</th>
+        <th>Rol nou</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of usersFaraOwner">
+        <td>{{ user.username || ('#' + user.idUser) }}</td>
+        <td>
+          <select (change)="onRoleChange(user, $any($event.target).value)">
+            <option value="">-- Selectează rol --</option>
+            <option *ngFor="let rol of roluri" [value]="rol">{{ rol }}</option>
+          </select>
+          <span *ngIf="roleUpdateStatus[user.idUser]" style="font-size: 0.92rem; color: #1b6b45; margin-left: 6px;">
+            {{ roleUpdateStatus[user.idUser] }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

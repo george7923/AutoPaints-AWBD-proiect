@@ -1,0 +1,144 @@
+
+.cart-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.cart-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.cart-product {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.cart-product-image img {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.cart-product-details {
+  flex-grow: 1;
+  padding-left: 15px;
+}
+
+.cart-product-Cantitatea {
+  display: flex;
+  align-items: center;
+}
+
+.Cantitatea-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.Cantitatea-input {
+  width: 50px;
+  text-align: center;
+}
+
+.remove-btn {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart-footer {
+  text-align: right;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.empty-cart {
+  text-align: center;
+  padding: 50px;
+}
+
+.stripe-container, .address-section, .card-section {
+  margin-top: 30px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.stripe-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stripe-form-field {
+  flex: 1 1 30%;
+}
+
+.stripe-error {
+  color: red;
+  margin-top: 10px;
+}
+
+.address-form, .card-form {
+  margin-top: 15px;
+}
+
+  .address-form input, .card-form input,  {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+
+.btn-primary {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.confirmation-message {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.error-label {
+  color: #e74c3c;
+  font-weight: 600;
+  background-color: #fdecea;
+  border: 1px solid #f5c6cb;
+  padding: 8px 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+
+.cash-payment-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  width: 100%;
+}

@@ -1,0 +1,92 @@
+<div class="cart-container">
+  <!-- Elemente din cos -->
+  <h2 class="cart-title">Produse în Coș</h2>
+  <div *ngIf="products.length > 0; else emptyCart">
+    <div class="cart-product" *ngFor="let product of products">
+
+      <div class="cart-product-details">
+        <h3 class="product-name">{{ product.nume }}</h3>
+        <p class="product-category">Categorie: {{ product.categorie }}</p>
+        <p class="product-price">Preț / bucată: {{ product.pret | currency:'RON' }}</p>
+        <p class="product-total">Total: {{ product.pret * product.cantitatea | currency:'RON' }}</p>
+      </div>
+      <div class="cart-product-Cantitatea">
+        <button (click)="decreaseCantitatea(product)" class="Cantitatea-btn">-</button>
+        <input type="text" [value]="product.cantitatea" class="Cantitatea-input" readonly />
+        <button (click)="increaseCantitatea(product)" class="Cantitatea-btn">+</button>
+      </div>
+      <div class="cart-product-remove">
+        <button (click)="StergeDinCos(product)" class="remove-btn">✖</button>
+      </div>
+    </div>
+    <div class="cart-footer">
+      <h3>Total: {{ totalPrice | currency:'RON' }}</h3>
+    </div>
+  </div>
+  <ng-template #emptyCart>
+    <div class="empty-cart">
+      <h2>Coșul este gol.</h2>
+      <button class="btn-primary" (click)="navigareHome()">Înapoi pe pagina principală</button>
+    </div>
+  </ng-template>
+
+  <!-- ADRESA -->
+  <div class="address-section">
+    <h3>Adresa de livrare</h3>
+
+    <select [(ngModel)]="edAddressId" (change)="onAddressionChange()">
+      <option *ngFor="let adr of userAddresses" [value]="adr.IdAdresa">
+        {{ adr.Strada || '—' }}{{ adr.Nr ? ' nr. ' + adr.Nr : '' }}{{ adr.Localitate ? ', ' + adr.Localitate : '' }}{{ adr.Judet ? ', ' + adr.Judet : '' }}{{ adr.Tara ? ', ' + adr.Tara : '' }}
+      </option>
+
+
+    </select>
+
+
+
+
+  <div class="card-section">
+    <h3>Modalitate de plată</h3>
+
+    <!-- Checkbox pentru plata la domiciliu -->
+    <label class="cash-payment-checkbox">
+      <input type="checkbox"
+             [(ngModel)]="livrareLaDomiciliu"
+             [disabled]="isCashDisabled()" />
+      Livrare la domiciliu (plată cash)
+      <span *ngIf="isCashDisabled()" style="color: red; font-size: 0.9em;">
+        (Indisponibil peste 1000 lei)
+      </span>
+    </label>
+
+    <!-- Info daca e selectat cash -->
+    <div *ngIf="livrareLaDomiciliu" style="color: green; margin-bottom:10px;">
+      Plata se va face la curier. Nu este nevoie să introduci datele de card.
+    </div>
+
+    <!-- Formular card - afisat doar daca NU e bifata livrarea la domiciliu -->
+    <div *ngIf="!livrareLaDomiciliu">
+      <h3>Selectează Cardul</h3>
+      <select [(ngModel)]="edCardId" (change)="onCardionChange()">
+
+        <option *ngFor="let card of userCards" [value]="card.idCard">
+          **** **** **** {{ card.numarCard.slice(-4) }}
+        </option>
+      </select>
+      <div *ngIf="cardErrors" class="error-label">
+        ⚠️ {{ cardErrors }}
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+  <!-- Submit -->
+  <button class="btn-primary" (click)="submitOrder()">Submit Payment & Order</button>
+  <div *ngIf="confirmationMessage" class="confirmation-message" [ngStyle]="{ 'color': confirmationColor }">
+    {{ confirmationMessage }}
+  </div>
+</div>

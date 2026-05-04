@@ -1,0 +1,105 @@
+<div class="product-container">
+  <div class="product-card">
+    <h2>Adaugă Produs</h2>
+
+    <form (ngSubmit)="addProduct()">
+      <!-- Nume Produs -->
+      <div class="form-group">
+        <label for="Nume">Nume Produs</label>
+        <input id="Nume"
+               type="text"
+               [(ngModel)]="product.Nume"
+               name="Nume"
+               required />
+      </div>
+
+      <!-- Descriere -->
+      <div class="form-group">
+        <label for="Descriere">Descriere</label>
+        <textarea id="Descriere"
+                  [(ngModel)]="product.Descriere"
+                  name="Descriere"></textarea>
+      </div>
+
+      <!-- Tip Produs (Spray / Non-spray) -->
+      <div class="form-group">
+        <label for="esteSpray">Tip Produs</label>
+        <select id="esteSpray"
+                [(ngModel)]="spraySelection"
+                name="esteSpray"
+                required>
+          <option value="">Selectează tipul</option>
+          <option value="Spray">Spray</option>
+          <option value="Non-spray">Non-spray</option>
+        </select>
+      </div>
+
+      <!-- Imagine -->
+      <div class="form-group">
+        <label for="Imagine">Imagine</label>
+        <input id="Imagine" type="file" (change)="handleImageInput($event)" />
+      </div>
+
+      <!-- Pret (LEI) -->
+      <div class="form-group">
+        <label for="Pret">Preț (LEI)</label>
+        <input id="Pret"
+               type="number"
+               [(ngModel)]="product.Pret"
+               name="Pret"
+               required />
+      </div>
+
+      <!-- Valabil -->
+      <div class="form-group">
+        <label for="Valabil">Valabil</label>
+        <input type="checkbox"
+               id="Valabil"
+               [(ngModel)]="product.Valabil"
+               name="Valabil" />
+      </div>
+
+      <!-- Categorie existenta -->
+      <!-- Selectare categorie existenta -->
+      <div class="form-group">
+        <label for="categorie">Categorie existentă</label>
+        <select id="categorie" [(ngModel)]="product.Categorie" name="categorie">
+          <option *ngFor="let cat of categories" [value]="cat.denumireCategorie">
+            {{ cat.denumireCategorie }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Categorie noua -->
+      <div class="form-group">
+        <label for="CategorieNoua">Sau adaugă o categorie nouă</label>
+        <input id="CategorieNoua"
+               type="text"
+               [(ngModel)]="newCategory"
+               name="CategorieNoua"
+               placeholder="Introduceți o categorie nouă (opțional)" />
+      </div>
+
+      <!-- Numar de subproduse -->
+      <div class="form-group">
+        <label for="subprodusCount">Număr de subproduse:</label>
+        <input id="subprodusCount"
+               type="number"
+               [(ngModel)]="subprodusCount"
+               name="subprodusCount"
+               min="0" />
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn">Adaugă produs</button>
+    </form>
+
+    <!-- Mesaje de succes/eroare -->
+    <div *ngIf="successMessage" class="form-error-message">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="form-error-message">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
