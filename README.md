@@ -119,6 +119,5 @@ Scopul aplicației este de a ajuta utilizatorii să identifice mai ușor produsu
 - **Frontend:** Angular
 - **Backend:** ASP.NET Core / Spring Boot
 - **Bază de date:** Microsoft SQL Server
-- **AI / Machine Learning:** Python, Flask, KMeans, model CNN
 - **Autentificare:** JWT
 - **Plăți:** Stripe sau sistem de plată simulat în backend
