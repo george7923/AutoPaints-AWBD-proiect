@@ -117,7 +117,7 @@ Scopul aplicației este de a ajuta utilizatorii să identifice mai ușor produsu
 ## Tehnologii utilizate
 
 - **Frontend:** Angular
-- **Backend:** ASP.NET Core / Spring Boot
+- **Backend:** ASP.NET Core
 - **Bază de date:** Microsoft SQL Server
 - **Autentificare:** JWT
 - **Plăți:** Stripe sau sistem de plată simulat în backend
