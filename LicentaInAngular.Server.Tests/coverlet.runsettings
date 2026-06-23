@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat Code Coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <Exclude>
+            [LicentaInAngular.Server]LicentaInAngular.Server.Controllers.*
+            [LicentaInAngular.Server]LicentaInAngular.Server.DataLayer.DTO.*
+            [LicentaInAngular.Server]LicentaInAngular.Server.DTOs.*
+            [LicentaInAngular.Server]LicentaInAngular.Server.Models.*
+            [LicentaInAngular.Server]LicentaInAngular.Server.Data.*
+            [LicentaInAngular.Server]LicentaInAngular.Server.Utils.*
+            [LicentaInAngular.Server]LicentaInAngular.Server.Migrations.*
+          </Exclude>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

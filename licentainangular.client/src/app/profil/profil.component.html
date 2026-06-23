@@ -1,0 +1,340 @@
+<div class="profil-dashboard">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="avatar-section">
+      <img src="assets/user.png" class="avatar-img" alt="Avatar">
+      <div class="avatar-name">{{ user?.Persoana?.Nume || user?.Persoana?.Prenume || user?.Username }}</div>
+      <div class="avatar-role">
+        {{ user?.Persoana?.TipPersoana === 'juridica' ? 'Company' : 'User' }}
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li [class.active]="activeTab==='user'" (click)="setActiveTab('user')">User Information</li>
+        <li [class.active]="activeTab==='address'" (click)="setActiveTab('address')">Address Information</li>
+        <li [class.active]="activeTab==='card'" (click)="setActiveTab('card')">Card Information</li>
+        <li [class.active]="activeTab==='product'"
+            *ngIf="user?.Persoana?.TipPersoana === 'juridica' || rolUser === 'Administrator' || rolUser === 'Owner'"
+            (click)="setActiveTab('product')">
+          Product Information
+        </li>
+
+
+        <li *ngIf="rolUser === 'Administrator' || rolUser === 'Owner'">
+          <button class="admin-btn" (click)="router.navigate(['/Administrator'])">Administrator Panel</button>
+        </li>
+
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+    <!-- User Info Tab -->
+    <section *ngIf="activeTab==='user'" class="card-section">
+      <h2>User Information</h2>
+      <div><b>Username:</b> {{ user?.Username }}</div>
+      <div><b>Full Name:</b> {{ user?.Persoana?.Nume }} {{ user?.Persoana?.Prenume }}</div>
+      <div><b>Email:</b> {{ user?.Persoana?.Email }}</div>
+      <div><b>Phone:</b> {{ user?.Persoana?.Telefon }}</div>
+      <button (click)="toggleEditUser()" class="blue-btn" *ngIf="!editingUser">Edit</button>
+      <form *ngIf="editingUser" (ngSubmit)="applyUserChanges()">
+        <label>Username:<input [(ngModel)]="userEdit.Username" name="username"></label>
+        <label>Nume:<input [(ngModel)]="userEdit.Persoana.Nume" name="nume"></label>
+        <label>Prenume:<input [(ngModel)]="userEdit.Persoana.Prenume" name="prenume"></label>
+        <label>Email:<input [(ngModel)]="userEdit.Persoana.Email" name="email"></label>
+        <label>Telefon:<input [(ngModel)]="userEdit.Persoana.Telefon" name="telefon"></label>
+        <label>
+          Parolă nouă:
+          <input [(ngModel)]="userEdit.Password" name="password" type="password" autocomplete="new-password" />
+          <small class="hint">Lasă gol dacă nu vrei să o schimbi.</small>
+          <span class="error-msg" *ngIf="parolaError">{{ parolaError }}</span>
+        </label>
+        <button type="submit" class="blue-btn">Salvează</button>
+        <button type="button" (click)="editingUser=false" class="red-btn">Renunță</button>
+      </form>
+    </section>
+
+    <!-- Address Tab -->
+    <section *ngIf="activeTab==='address'" class="card-section">
+      <h2>Address Information</h2>
+
+      <!-- Lista adreselor existente -->
+      <div *ngIf="addresses?.length === 0" class="address-empty">
+        Nu există adrese salvate.
+      </div>
+      <div *ngFor="let addr of addresses" class="address-box">
+        {{ addr }}
+
+      </div>
+
+      <!-- Butonul pentru adaugare adresa (ascuns daca formularul e vizibil) -->
+      <button class="blue-btn" (click)="addAddress()" *ngIf="!editingAddress">Add New Address</button>
+
+      <!-- Formularul de adaugare adresa -->
+      <div *ngIf="editingAddress" class="add-edit-form">
+        <h3>Adaugă adresă nouă</h3>
+        <form (ngSubmit)="saveAddress()" autocomplete="off">
+          <input type="text" [(ngModel)]="addressForm.DenumireStrada" name="denumireStrada" placeholder="Strada" required />
+          <input type="number" [(ngModel)]="addressForm.NrStrada" name="nrStrada" placeholder="Număr" required />
+          <input type="text" [(ngModel)]="addressForm.DenumireLocalitate" name="denumireLocalitate" placeholder="Localitate" required />
+          <input type="text" [(ngModel)]="addressForm.DenumireJudet" name="denumireJudet" placeholder="Județ" required />
+          <input type="text" [(ngModel)]="addressForm.DenumireTara" name="denumireTara" placeholder="Țară" required />
+          <input type="text" [(ngModel)]="addressForm.Bloc" name="bloc" placeholder="Bloc (opțional)" />
+          <input type="text" [(ngModel)]="addressForm.Scara" name="scara" placeholder="Scară (opțional)" />
+          <input type="text" [(ngModel)]="addressForm.Etaj" name="etaj" placeholder="Etaj (opțional)" />
+          <input type="text" [(ngModel)]="addressForm.Apartament" name="apartament" placeholder="Apartament (opțional)" />
+          <div class="btns-row" style="margin-top: 1.2rem;">
+            <button type="submit" class="blue-btn">Salvează</button>
+            <button type="button" (click)="editingAddress = false" class="red-btn">Renunță</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+
+
+
+    <!-- Card Tab -->
+    <section *ngIf="activeTab==='card'" class="card-section">
+      <h2>Card Information</h2>
+      <div *ngFor="let c of cards" class="card-box">
+        <div>**** **** **** {{ c.numarCard?.slice(-4) }}</div>
+        <div>Expiră: {{ c.dataExpirare | date:'MM/yy' }}</div>
+        <button class="red-btn small-btn" (click)="deleteCard(c.idCard)">Delete</button>
+      </div>
+      <button class="blue-btn" (click)="startAddingCard()">Add New Card</button>
+
+      <div *ngIf="addingCard" class="add-edit-form">
+        <h3>Adaugă card nou</h3>
+        <label>
+          Număr card:
+          <input type="text"
+                 [(ngModel)]="manualCard.numarCard"
+                 maxlength="19"
+                 placeholder="Număr card"
+                 (input)="onCardNumberInput($event)"
+                 autocomplete="off" />
+
+        </label>
+        <label>
+          Data expirare (MM/YY):
+          <input type="text"
+                 [(ngModel)]="manualCard.expiry"
+                 maxlength="5"
+                 placeholder="MM/YY"
+                 (input)="onExpiryInput($event)"
+                 autocomplete="off" />
+
+        </label>
+        <label>
+          CVV:
+          <input type="text"
+                 [(ngModel)]="manualCard.cvv"
+                 maxlength="3"
+                 (input)="onCVVInput($event)"
+                 placeholder="CVV"
+                 autocomplete="off" />
+          <span *ngIf="cardErrors" class="error-msg">{{ cardErrors }}</span>
+
+        </label>
+        <div class="btns-row">
+          <button class="blue-btn" (click)="createAndAssignCard()">Salvează</button>
+          <button class="red-btn" (click)="cancelCardForm()">Renunță</button>
+        </div>
+        <span *ngIf="cardErrors" class="error-msg">{{ cardErrors }}</span>
+      </div>
+
+    </section>
+
+    <!-- Product Tab -- doar pentru juridici/admin/owner -->
+    <section *ngIf="
+    activeTab === 'product' &&
+    (
+      user?.Persoana?.TipPersoana === 'juridica' ||
+      rolUser === 'Administrator' ||
+      rolUser === 'Owner'
+    )
+  "
+             class="card-section">
+      <h2>Product Information</h2>
+      <div *ngIf="produseJuridice?.length === 0" class="product-msg">
+        Nu ai niciun produs.
+        <button class="blue-btn small-btn" (click)="addProdus()">Adaugă produs nou</button>
+      </div>
+
+      <div *ngFor="let prod of produseJuridice" class="product-box">
+        <div>
+          <b>{{ prod.nume }}</b>
+          <div class="categorie">{{ prod.denumireCategorie }}</div>
+          <div class="small">Cantitate: {{ prod.cantitate }}</div>
+          <span class="small" [ngClass]="prod.valabil ? 'green' : 'red'">
+            {{ prod.valabil ? 'Disponibil' : 'Indisponibil' }}
+          </span>
+        </div>
+        <div style="margin-top:0.5em;">
+          <button class="blue-btn small-btn" (click)="editProdus(prod)">Editează</button>
+        </div>
+
+        <!-- Boxul de editare si reduceri apare SUB produsul editat -->
+        <div *ngIf="produsEditId === prod.idProdus" class="edit-product-form" style="margin-top:1em;">
+          <form (ngSubmit)="updateProdus()" autocomplete="off">
+            <input type="text"
+                   [(ngModel)]="produsEdit.nume"
+                   name="nume"
+                   placeholder="Nume produs"
+                   required />
+            <input type="text"
+                   [(ngModel)]="produsEdit.descriere"
+                   name="descriere"
+                   placeholder="Descriere" />
+            <input type="number"
+                   [(ngModel)]="cantitateSubprodus"
+                   name="cantitate"
+                   min="0"
+                   placeholder="Cantitate subproduse" />
+            <input type="text"
+                   [(ngModel)]="produsEdit.denumireCategorie"
+                   name="denumireCategorie"
+                   placeholder="Categorie" />
+            <div class="edit-flags">
+              <label>
+                <input type="checkbox" [(ngModel)]="produsEdit.esteSpray" name="esteSpray" />
+                Este spray
+              </label>
+              <label>
+                <input type="checkbox" [(ngModel)]="produsEdit.valabil" name="valabil" />
+                Disponibil
+              </label>
+            </div>
+            <input type="number"
+                   [(ngModel)]="produsEdit.idUser"
+                   name="idUser"
+                   min="1"
+                   placeholder="ID User (opțional)" />
+
+            <!-- Imagine -->
+            <div class="img-btns" style="margin:0.8em 0;">
+              <input type="file" (change)="onImagineChange($event)" accept="image/*" />
+              <button type="button" class="red-btn small-btn" (click)="stergeImagine()">Șterge imagine</button>
+            </div>
+            <div *ngIf="imgPreview" class="product-img-box" style="margin-bottom:8px;">
+              <img [src]="imgPreview" width="100" />
+            </div>
+            <div class="btns-row" style="margin-top:0.8rem;">
+              <button type="submit" class="blue-btn">Salvează</button>
+              <button type="button" (click)="produsEditId=null; produsEdit=null" class="red-btn">Renunță</button>
+            </div>
+          </form>
+          <div *ngIf="mesajProdus" class="info-msg">{{ mesajProdus }}</div>
+        </div>
+      </div>
+
+      <!-- Reduceri tab Tab -- doar pentru juridici/admin/owner -->
+      <!-- SECTIUNE REDUCERI -->
+      <div class="reduceri-box">
+        <h2>Schimbă prețul la produse!</h2>
+
+        <!-- Selector produs -->
+        <label>
+          Produs:
+          <select [(ngModel)]="reducereProdusId"
+                  #selectProdus
+                  (change)="onSelectProdusReducere(+selectProdus.value)">
+            <option [ngValue]="null">Alege produs...</option>
+
+            <ng-container *ngFor="let produs of produseJuridice">
+              <option *ngIf="produs.idUser !== null" [value]="produs.idProdus">
+                {{ produs.nume }}
+              </option>
+            </ng-container>
+          </select>
+        </label>
+
+
+        <!-- Afisare pret vechi și nou pentru produsul selectat -->
+        <div *ngIf="pretReducere">
+          <div *ngIf="pretReducere.pretVechi">
+            Preț vechi:
+            <span class="pret-vechi">
+              {{ pretReducere.pretVechi.Pret || pretReducere.pretVechi.pret | number:'1.2-2' }} lei
+            </span>
+          </div>
+          <div *ngIf="pretReducere.pretNou">
+            Preț nou:
+            <span class="pret-curent">
+              {{ pretReducere.pretNou.Pret || pretReducere.pretNou.pret | number:'1.2-2' }} lei
+            </span>
+          </div>
+        </div>
+
+
+        <!-- Input noul pret -->
+        <label>
+          Preț nou:
+          <input type="number" [(ngModel)]="pretNou" min="1" />
+        </label>
+
+        <!-- Input data expirare optionala -->
+        <label>
+          Dată expirare reducere (opțional, doar pentru reduceri sau scumpiri temporare!):
+          <input type="date" [(ngModel)]="dataExpirare" />
+        </label>
+
+        <!-- Buton aplicare reducere -->
+        <button (click)="aplicaReducere()">Aplică reducere</button>
+
+        <!-- Mesaj succes/eroare -->
+        <span class="reducere-message">{{ mesajReducere }}</span>
+      </div>
+
+      <!-- === Panel pentru preturi existente === -->
+
+      <div class="preturi-panel">
+        <h3>Prețuri existente</h3>
+
+        <div *ngFor="let produs of produseJuridice" class="produs-section">
+          <div *ngIf="produs.idUser !== null" class="produs-section">
+            <h4>{{ produs.nume }}</h4>
+
+            <div *ngIf="preturiPeProdus.get(produs.idProdus)?.length; else faraPreturi">
+              <div *ngFor="let pret of preturiPeProdus.get(produs.idProdus)" class="pret-row">
+                <div class="pret-col">
+                  <label>Preț:</label>
+                  <input [(ngModel)]="pret.pret" type="number" step="0.01" />
+                </div>
+
+                <div class="pret-col">
+                  <label>Expiră la:</label>
+                  <input [(ngModel)]="pret.dataExpirare"
+                         type="date"
+                         [disabled]="!pret.dataExpirare" />
+                </div>
+
+                <div class="pret-col actiuni">
+                  <button (click)="salveazaPret(pret)">✅</button>
+                  <button (click)="stergePret(pret)"
+                          [disabled]="!poateFiSters(produs.idProdus, pret)">
+                    ❌
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #faraPreturi>
+              <p class="no-preturi">Nu există prețuri pentru acest produs.</p>
+            </ng-template>
+
+            <hr />
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+  </main>
+</div>

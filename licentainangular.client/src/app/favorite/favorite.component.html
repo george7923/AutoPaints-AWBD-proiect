@@ -1,0 +1,23 @@
+<div class="container">
+  <h1 class="title">Produse Favorite</h1>
+
+  <div *ngIf="favorites.length === 0" class="no-products">
+    <p>Nu ai produse favorite adăugate încă.</p>
+  </div>
+
+  <div *ngIf="favorites.length > 0" class="product-grid">
+    <div *ngFor="let produs of favorites"
+         class="product-card">
+      <img [src]="produs.image"
+           [alt]="produs.name"
+           class="product-image" />
+      <h2 class="product-name">{{ produs.name }}</h2>
+      <p class="product-description">{{ produs.description }}</p>
+      <p class="product-price">{{ produs.price | currency : "RON" }}</p>
+      <button (click)="removeFromFavorites(produs)"
+              class="remove-button">
+        Îndepărtează
+      </button>
+    </div>
+  </div>
+</div>

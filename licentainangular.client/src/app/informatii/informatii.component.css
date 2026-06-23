@@ -1,0 +1,72 @@
+/* Global body styles for the information page */
+body {
+  background: linear-gradient(145deg, #1a1a1a, #434343); /* Dark gray to black gradient */
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh; /* Ensure the body fills the full viewport */
+}
+
+/* Information container (purple gradient background) */
+.information-container {
+  background: linear-gradient(145deg, #7e57c2, #512da8); /* Purple gradient for content */
+  color: #ffffff;
+  padding: 40px;
+  max-width: 900px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+/* Title for each section in the information page */
+.information-section-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  color: #ffffff;
+  letter-spacing: 1px;
+  border-bottom: 2px solid #ffffff;
+  padding-bottom: 5px;
+}
+
+/* Section styles for the information page */
+.information-section {
+  margin-bottom: 40px;
+}
+
+  /* Paragraph text style for content */
+  .information-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #e0f7fa; /* Light cyan text */
+    margin-bottom: 10px;
+  }
+
+/* Links with hover effect */
+a {
+  color: #ffeb3b; /* Bright yellow for links */
+  text-decoration: none;
+  font-weight: bold;
+}
+
+  a:hover {
+    text-decoration: underline;
+    color: #fff59d; /* Slightly darker yellow on hover */
+  }
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+  .information-container {
+    padding: 20px;
+  }
+
+  .information-section-title {
+    font-size: 1.5rem;
+  }
+
+  .information-section p {
+    font-size: 1rem;
+  }
+}

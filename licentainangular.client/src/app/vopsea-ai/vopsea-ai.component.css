@@ -1,0 +1,46 @@
+/* vopsea-ai.component.css */
+.vopsea-ai-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f7f7f7;
+}
+
+  .vopsea-ai-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+  }
+
+input[type="file"] {
+  margin: 1rem 0;
+}
+
+button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+
+  button:hover:not(:disabled) {
+    background-color: #45a049;
+  }
+
+.result-container {
+  margin-top: 2rem;
+  padding: 1rem;
+  border: 2px solid #000;
+  border-radius: 8px;
+  display: inline-block;
+  min-width: 300px;
+  font-size: 1.1rem;
+}

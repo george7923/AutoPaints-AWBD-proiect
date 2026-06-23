@@ -1,0 +1,119 @@
+<!--  mid-bar.component.html  -->
+<nav class="mid-bar">
+  <div class="midbar-inner">
+    <!-- LOGO -->
+    <a class="logo" (click)="navigateToHome()">
+      <img src="assets/logo.png" alt="LOGO" />
+    </a>
+
+    <!-- SEARCH BAR -->
+    <div class="search-wrapper">
+      <form class="search-form" (submit)="onSearch($event)">
+        <input [(ngModel)]="searchTerm"
+               name="search"
+               class="form-input"
+               type="search"
+               placeholder="Caută produse"
+               aria-label="Search"
+               (input)="onSearchInput()" />
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+
+
+      <!-- Rezultate căutare -->
+      <div *ngIf="searchTerm" class="search-dropdown">
+        <ng-container *ngIf="searchResults?.length; else noRes">
+          <ul class="scrollable-list">
+            <li *ngFor="let product of searchResults"
+                class="search-item"
+                (click)="navigateToProduct(product)">
+              <img src="assets/default.png"
+                   alt="{{ product.nume }}"
+                   class="product-image" />
+              <span class="product-name">{{ product.nume }}</span>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #noRes>
+          <div class="no-results">Niciun produs găsit.</div>
+        </ng-template>
+      </div>
+
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions">
+      <!-- Profil -->
+      <a *ngIf="authService.isAuthenticated()"
+         (click)="navigateToProfile()">
+        <img src="assets/user.png" alt="Profil" />
+        {{ currentUsername }}
+      </a>
+
+      <!-- Administrator -->
+      <a *ngIf="authService.isAuthenticated() &&
+                currentPersoana &&
+                (currentPersoana.rol === 'Administrator' || currentPersoana.rol === 'Owner')"
+         routerLink="/Administrator">
+        <img src="assets/user.png" alt="Admin" />
+        Administrator
+      </a>
+
+      <!-- Adauga Produs -->
+      <a *ngIf="authService.isAuthenticated() &&
+                currentPersoana &&
+                ((currentPersoana.rol === 'Administrator' || currentPersoana.rol === 'Owner')
+                  || currentPersoana.tipPersoana === 'Juridica')"
+         routerLink="/add-product">
+        <img src="assets/add-product.png" alt="Add" />
+        Adaugă Produs
+      </a>
+
+      <!-- AI -->
+      <a routerLink="/pagina_ai">
+        <img src="assets/Recognize.png" alt="AI" />
+        AI
+      </a>
+
+      <!-- Catalog -->
+      <a routerLink="/catalog">
+        <img src="assets/catalog.png" alt="Catalog" />
+        Catalog
+      </a>
+
+      <!-- Istoric Comenzi -->
+      <a *ngIf="authService.isAuthenticated()"
+         (click)="navigateToIstoricComenzi()">
+        <img src="assets/comenzi.png" alt="Comenzi" />
+        Comenzi
+      </a>
+
+      <!-- ChatBot -->
+      <a routerLink="/GPT">
+        <img src="assets/ChatBot.png" alt="ChatBot" />
+        Asistent
+      </a>
+
+      <!-- Login -->
+      <a *ngIf="!authService.isAuthenticated()"
+         (click)="navigateToLogin()">
+        <img src="assets/autentificare.png" alt="Login" />
+        Autentificare
+      </a>
+
+      <!-- Coș – apare doar dacă userul e logat -->
+      <a *ngIf="authService.isAuthenticated()" routerLink="/cos">
+        <img src="assets/cart.png" alt="Coș" />
+        Coș
+      </a>
+
+      <!-- Logout -->
+      <a *ngIf="authService.isAuthenticated()" (click)="logout()">
+        <img src="assets/deconectare.png" alt="Logout" />
+        Deconectare
+      </a>
+    </div>
+  </div>
+
+
+</nav>

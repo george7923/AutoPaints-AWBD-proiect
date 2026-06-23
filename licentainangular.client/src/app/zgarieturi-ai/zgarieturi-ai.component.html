@@ -1,0 +1,24 @@
+<div class="zgarieturi-ai-container">
+  <h2>Detectare Defecțiuni (Zgârieturi)</h2>
+  <input type="file" (change)="onFileSelected($event)" />
+  <button (click)="upload()" [disabled]="!selectedFile">Detectează Defecțiuni</button>
+  <p *ngIf="!selectedFile" class="text-warning">
+    (Nu ai selectat niciun fișier încă)
+  </p>
+  <p *ngIf="selectedFile" class="text-info">
+    Fișier gata de trimis: {{ selectedFile.name }}
+  </p>
+  <div *ngIf="imagePreviewUrl" style="margin-top: 1rem;">
+    <p><strong>Imagine încărcată:</strong></p>
+    <img [src]="imagePreviewUrl" alt="Preview" style="max-width: 400px; border: 1px solid #ccc;" />
+  </div>
+
+  <div *ngIf="result" class="result-container" [ngStyle]="{'background-color': getBackgroundColor()}">
+    <p *ngIf="result.DefectClass === 'Fără defecte'">
+      <strong>Rezultat:</strong> Fără defecte
+    </p>
+    <p *ngIf="result.DefectClass !== 'Fără defecte'">
+      <strong>Rezultat:</strong> {{ result.DefectClass }} ({{ (result.Probability * 100) | number:'1.0-2' }}%)
+    </p>
+  </div>
+</div>

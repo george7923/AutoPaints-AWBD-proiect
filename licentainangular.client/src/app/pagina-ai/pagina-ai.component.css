@@ -1,0 +1,38 @@
+/* Containerul principal al paginii */
+.pagina-ai-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f7f7f7;
+}
+
+  /* Titlul paginii */
+  .pagina-ai-container h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+  }
+
+/* Container pentru butoane, cu spatiere intre ele */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Stilizarea butoanelor AI */
+.ai-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+  /* Efect de hover pentru butoane */
+  .ai-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }

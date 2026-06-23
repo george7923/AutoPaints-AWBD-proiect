@@ -1,0 +1,86 @@
+<!-- Catalog Page Header -->
+<div class="text-center my-8">
+  <h1 class="text-5xl font-bold">Catalog Produse</h1>
+  <h2 class="text-3xl font-bold text-gray-600">Filtrează produsele după categorie</h2>
+</div>
+
+<!-- Card special / buton pentru Creare Vopsea Personalizata -->
+<div class="product-grid special-card-container">
+  <div class="product-card special-card" (click)="navigateToVopsea()">
+    <div class="product-card-content">
+      <h3 class="product-title">Vopsea Auto Preparată</h3>
+      <img src="assets/vopsea-personalizata.png"
+           alt="Vopsea Auto"
+           class="product-image" />
+      <p class="product-description">
+        Creează vopsea auto personalizată după codul de culoare al mașinii
+      </p>
+      <p class="product-price">
+        <strong>Preț aproximativ:</strong> 35 - 60 RON
+      </p>
+      <button class="vopsea-btn">Vezi detalii</button>
+    </div>
+  </div>
+</div>
+
+<!-- Dropdown pentru filtrare după categorie -->
+<div class="filter-container text-center mb-6">
+  <label for="categoryFilter">Selectează Categorie:</label>
+  <select id="categoryFilter"
+          [(ngModel)]="selectedCategory"
+          (change)="filterByCategory()">
+    <option value="">Toate</option>
+    <option *ngFor="let cat of categories" [value]="cat">
+      {{ cat }}
+    </option>
+  </select>
+</div>
+
+<!-- Grid-ul de produse -->
+<div class="product-grid">
+  <div class="product-card"
+       *ngFor="let product of filteredProducts"
+       (click)="navigateToProduct(product)">
+    <div class="product-card-content">
+      <!-- Nume Produs -->
+      <h3 class="product-title">{{ product.Nume }}</h3>
+      <img [src]="product.Imagine"
+           [alt]="product.Nume"
+           class="product-image" />
+
+      <!-- Detalii Produs -->
+      <p class="product-category">
+        <strong>Categoria:</strong> {{ product.Categorie }}
+      </p>
+      <p class="product-description">
+        <strong>Descriere:</strong> {{ product.Descriere }}
+      </p>
+      <p class="product-price">
+      <p class="product-price">
+        <strong>Preț:</strong>
+        <!-- Daca exista reducere activa, arata ambele preturi -->
+        <span *ngIf="product.pretVechi && product.pretReducere && product.pretVechi > product.pretReducere">
+          <span style="color: #b90000; text-decoration: line-through; margin-right: 8px;">
+            {{ product.pretVechi | number:'1.2-2' }} lei
+          </span>
+          <span style="color: #27ae60; font-weight: bold;">
+            {{ product.pretReducere | number:'1.2-2' }} lei
+          </span>
+        </span>
+        <!-- Altfel, doar pretul normal -->
+        <span *ngIf="!product.pretReducere || !product.pretVechi || product.pretVechi <= product.pretReducere">
+          {{ product.Pret | currency:'RON' }}
+        </span>
+      </p>
+
+      <p class="product-vendor">
+        <strong>Vândut de:</strong> {{ product.Vendor }}
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Mesaj cand nu exista produse în categoria selectata -->
+<div *ngIf="filteredProducts.length === 0" class="no-products-message text-center">
+  <p>Momentan nu sunt produse disponibile în această categorie</p>
+</div>

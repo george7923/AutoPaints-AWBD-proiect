@@ -1,0 +1,82 @@
+<!--  footer.component.html  -->
+<footer class="footer">
+
+  <div class="footer__grid">
+
+    <!-- CONTACT -->
+    <div class="footer__block">
+      <h2 class="footer__title">Contact</h2>
+
+      <p class="footer__subtitle">Adresa</p>
+      <p class="footer__text">Bd. Aurel Vlaicu 6, Constanța 900007</p>
+
+      <p class="footer__subtitle">Telefon</p>
+      <p class="footer__text">0735 176 485</p>
+
+      <p class="footer__subtitle">Program</p>
+      <p class="footer__text">L-V 09-17 · S-D Închis</p>
+
+      <a href="https://www.google.ro/maps/place/Magazin+de+vopsele+auto+ROMCAST+EXPERT:/@44.1521281,28.6220029,20z/data=!4m6!3m5!1s0x40bae500269a5795:0x8d0d280650555dc9!8m2!3d44.1521281!4d28.6223248!16s%2Fg%2F11lcxb9zks?entry=ttu"
+         target="_blank" rel="noopener"
+         class="footer__link">Vezi pe hartă →</a>
+    </div>
+
+    <!-- CONT -->
+    <div class="footer__block">
+      <h2 class="footer__title">Cont</h2>
+      <ul class="footer__list">
+        <li>
+          <a *ngIf="!authService.isAuthenticated()"
+             routerLink="/authentification"
+             class="footer__link">Autentificare</a>
+        </li>
+        <li>
+          <a *ngIf="!authService.isAuthenticated()"
+             routerLink="/register"
+             class="footer__link">Înregistrare</a>
+        </li>
+        <li>
+          <a *ngIf="authService.isAuthenticated()"
+             routerLink="/istoric-comenzi"
+             class="footer__link">Istoric comenzi</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- INFO + ANPC -->
+    <div class="footer__block">
+      <h2 class="footer__title">Informații utile</h2>
+      <ul class="footer__list">
+        <li><a routerLink="/informatii" class="footer__link">Despre noi</a></li>
+        <li><a routerLink="/termeni-conditii" class="footer__link">Termeni &amp; condiții</a></li>
+        <li><a routerLink="/politica-confidentialitate" class="footer__link">Politica de confidențialitate</a></li>
+      </ul>
+
+      <!-- Sigle ANPC -->
+      <div class="footer__anpc">
+        <a href="https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home2.show&lng=RO"
+           target="_blank" rel="noopener">
+          <img src="assets/anpc-sol.png" alt="ANPC SOL">
+        </a>
+        <a href="https://reclamatiisal.anpc.ro/"
+           target="_blank" rel="noopener">
+          <img src="assets/anpc-sal.png" alt="ANPC SAL">
+        </a>
+      </div>
+    </div>
+
+    <!-- SOCIAL -->
+    <div class="footer__block">
+      <h2 class="footer__title">Urmărește-ne</h2>
+      <ul class="footer__list">
+        <li>
+          <a href="https://www.facebook.com/romcast.romcast.9"
+             target="_blank" rel="noopener"
+             class="footer__link">Facebook</a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</footer>

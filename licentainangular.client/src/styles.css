@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.top-bar {
+  @apply bg-gray-100 py-2;
+}
+
+.mid-bar {
+  @apply bg-white py-4 shadow-md;
+}
+
+.form-input {
+  @apply border border-gray-300 rounded-l px-4 py-2;
+}
+
+button {
+  @apply bg-green-500 text-white px-4 rounded-r hover:bg-green-600;
+}

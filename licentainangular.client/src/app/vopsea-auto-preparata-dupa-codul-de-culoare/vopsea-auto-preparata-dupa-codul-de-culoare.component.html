@@ -1,0 +1,51 @@
+<div class="vopsea-container">
+
+  <h2>Introduceți datele spray-ului / vopselei auto</h2>
+
+  <label for="tip-select">Tip (spray / vopsea):</label>
+  <select id="tip-select" [(ngModel)]="tipVopsea">
+    <option value="spray">spray</option>
+    <option value="vopsea">vopsea</option>
+  </select>
+
+  <label for="marca">Marca:</label>
+  <input id="marca" type="text" [(ngModel)]="marcaMasinii" />
+
+  <label for="cod-culoare">Cod Culoare:</label>
+  <input id="cod-culoare" type="text" [(ngModel)]="codCuloare" />
+
+  <label for="model">Model:</label>
+  <input id="model" type="text" [(ngModel)]="modelMasina" />
+
+  <label for="an">An fabricație:</label>
+  <input type="number"
+         [(ngModel)]="anFabricatie"
+         id="anFabricatie"
+         name="anFabricatie"
+         min="1900"
+         max="3000" />
+
+
+  <label for="serie">Serie Caroserie (poz. E):</label>
+  <input id="serie" type="text" [(ngModel)]="serieCaroserie" />
+
+  <label for="cantitate">Cantitate subproduse:</label>
+  <input id="cantitate"
+         type="number"
+         min="1"
+         [(ngModel)]="cantitateSubproduse"
+         class="cantitate-input" />
+
+  <label for="detalii">Detalii suplimentare:</label>
+  <textarea id="detalii" [(ngModel)]="detaliiSuplimentare"></textarea>
+
+  <button class="adauga-btn" (click)="adaugaInCos()">Adaugă în coș</button>
+
+  <!-- Mesaj de succes/eroare -->
+  <div *ngIf="msg" class="msg" [style.color]="msgColor">
+    {{ msg }}
+  </div>
+
+  
+
+</div>

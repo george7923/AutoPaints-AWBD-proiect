@@ -1,0 +1,95 @@
+/* ===== PALETA FIXA ===== */
+.footer {
+  background-color: #252525 !important; /* gri inchis */
+  color: #ffffff; /* text alb  */
+  padding: 2.5rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  transition: filter 0.25s ease;
+}
+
+
+  .footer:hover {
+    filter: brightness(1.07);
+  }
+
+/* ===== GRID ===== */
+.footer__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2.4rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+/* ===== BLOCS ===== */
+.footer__block {
+}
+
+.footer__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.footer__subtitle {
+  font-weight: 600;
+  margin: 0.9rem 0 0.15rem;
+}
+
+.footer__text {
+  margin: 0.15rem 0;
+}
+
+.footer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+  .footer__list li + li {
+    margin-top: 0.4rem;
+  }
+
+/* ===== LINK-URI ===== */
+.footer__link {
+  color: #d7d7d7;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+  .footer__link:hover {
+    color: #ffffff;
+  }
+
+/* ===== SIGLE ANPC ===== */
+.footer__anpc {
+  margin-top: 1.3rem;
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+}
+
+  .footer__anpc img {
+    height: 55px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(45%) brightness(0.9);
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+
+    .footer__anpc img:hover {
+      transform: scale(1.05);
+      filter: grayscale(0%) brightness(1);
+    }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 480px) {
+  .footer {
+    font-size: 0.82rem;
+  }
+
+  .footer__anpc img {
+    height: 48px;
+  }
+}

@@ -1,0 +1,68 @@
+<div class="product-container">
+  <div class="product-card">
+    <!-- Product Header -->
+    <div class="product-header">
+      <h2 class="product-title">{{ product.Nume || 'Loading...' }}</h2>
+      <p class="product-description">{{ product.Descriere || 'Nicio descriere disponibilă.' }}</p>
+    </div>
+
+    <!-- Product Image -->
+    <div class="product-image">
+      <img [src]="product.Imagine ? product.Imagine : (categoryImages[product.Categorie] || 'assets/default.png')"
+           alt="{{ product.Nume }}" />
+    </div>
+
+    <!-- Product Details -->
+    <div class="product-details">
+      <div class="product-detail">
+        <label>Price:</label>
+        <span>{{ product.Pret | currency:'RON' }}</span>
+      </div>
+      <div class="product-detail">
+        <label>Category:</label>
+        <span>{{ product.Categorie || 'N/A' }}</span>
+      </div>
+      <div class="product-detail">
+        <label>Is Spray:</label>
+        <span>{{ product.EsteSprayText }}</span>
+      </div>
+      <div class="product-detail">
+        <label>Availability:</label>
+        <span>{{ product.Valabil ? 'Available' : 'Not available' }}</span>
+      </div>
+      <div class="product-detail">
+        <label>Total Produse Disponibile:</label>
+        <span>{{ totalSubproduseDisponibile }}</span>
+      </div>
+      <div class="product-detail">
+        <label>Vândut de:</label>
+        <span>{{ product.Vendor }}</span>
+      </div>
+    </div>
+
+    <!-- Eroare / succes -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="success-message">
+      {{ successMessage }}
+    </div>
+
+    <!-- Quantity Selector + Add to Cart Button -->
+    <div class="product-actions">
+      <div class="quantity-selector">
+        <button (click)="decreaseQuantity()" [disabled]="quantity <= 1">-</button>
+        <input type="number"
+               [(ngModel)]="quantity"
+               [min]="1"
+               [max]="totalSubproduseDisponibile > 0 ? totalSubproduseDisponibile : 1" />
+        <button (click)="increaseQuantity()" [disabled]="quantity >= totalSubproduseDisponibile">+</button>
+      </div>
+      <button class="add-to-cart-btn"
+              (click)="addToCart(product)"
+              [disabled]="quantity < 1">
+        Adaugă în coș
+      </button>
+    </div>
+  </div>
+</div>
