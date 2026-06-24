@@ -97,29 +97,3 @@ namespace LicentaInAngular.Server.Controllers
     }
 }
 
-public class ProdusComandaBonFiscalDTO
-{
-    public string NumeProdus { get; set; }
-    public int Cantitate { get; set; }
-    public double PretUnitar { get; set; }
-}
-
-public class BonFiscalDTO
-{
-    public int IdComanda { get; set; }
-    public DateTime ETA { get; set; }
-    public double PretTotal { get; set; }
-    public bool IsPlaced { get; set; }
-
-    public string Tara { get; set; }
-    public string Judet { get; set; }
-    public string Localitate { get; set; }
-    public string Strada { get; set; }
-    public int Nr { get; set; }
-    public string? Bloc { get; set; }
-    public string? Scara { get; set; }
-    public string? Etaj { get; set; }
-    public string? Apartament { get; set; }
-
-    public List<ProdusComandaBonFiscalDTO> Produse { get; set; } = new();
-}

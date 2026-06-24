@@ -95,7 +95,6 @@
 
   <ItemGroup>
     <Folder Include="Middleware\" />
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
