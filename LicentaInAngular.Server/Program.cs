@@ -4,16 +4,38 @@ using LicentaInAngular.Server.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
+using Serilog.Events;
+using Serilog.Context;
 using System.Text;
 using LicentaInAngular.Server.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+    .MinimumLevel.Override("System", LogEventLevel.Warning)
+    .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
+    .Enrich.FromLogContext()
+    .Enrich.WithProperty("Application", "LicentaInAngular.Server")
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "Logs/log-.txt",
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 14,
+        restrictedToMinimumLevel: LogEventLevel.Debug)
+    .WriteTo.File(
+        path: "Logs/error-.txt",
+        rollingInterval: RollingInterval.Day,
+        retainedFileCountLimit: 30,
+        restrictedToMinimumLevel: LogEventLevel.Error)
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-builder.Logging.AddConsole();
-builder.Services.AddLogging();
 
 builder.Services.AddOpenApiDocument(config =>
 {
@@ -99,6 +121,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
     {
+        var jwtKey = builder.Configuration["Jwt:Key"]
+            ?? throw new InvalidOperationException("Jwt:Key is missing from configuration.");
+
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
@@ -110,30 +135,65 @@ builder.Services.AddAuthentication("Bearer")
             ValidAudience = builder.Configuration["Jwt:Audience"],
 
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])
+                Encoding.UTF8.GetBytes(jwtKey)
             )
         };
     });
 
-var app = builder.Build();
-
-app.UseCors("AllowAll");
-
-app.UseMiddleware<ErrorHandlerMiddleware>();
-
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+try
 {
-    app.UseOpenApi();
-    app.UseSwaggerUi();
+    var app = builder.Build();
+
+    app.UseMiddleware<CorrelationIdMiddleware>();
+
+    app.UseSerilogRequestLogging(options =>
+    {
+        options.MessageTemplate = "HTTP {RequestMethod} {RequestPath} responded {StatusCode} in {Elapsed:0.0000} ms";
+        options.GetLevel = (httpContext, elapsed, exception) =>
+            exception != null || httpContext.Response.StatusCode >= StatusCodes.Status500InternalServerError
+                ? LogEventLevel.Error
+                : httpContext.Response.StatusCode >= StatusCodes.Status400BadRequest
+                    ? LogEventLevel.Warning
+                    : LogEventLevel.Information;
+        options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+        {
+            diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
+            diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
+            diagnosticContext.Set("RequestProtocol", httpContext.Request.Protocol);
+            diagnosticContext.Set("CorrelationId", httpContext.TraceIdentifier ?? string.Empty);
+
+            var userName = httpContext.User?.Identity?.Name ?? "anonymous";
+            diagnosticContext.Set("UserName", userName);
+        };
+    });
+
+    app.UseCors("AllowAll");
+
+    app.UseMiddleware<ErrorHandlerMiddleware>();
+
+    if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+    {
+        app.UseOpenApi();
+        app.UseSwaggerUi();
+    }
+
+    app.UseHttpsRedirection();
+
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    Log.Information("Application starting up on {MachineName}", Environment.MachineName);
+    app.Run();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
 
 public partial class Program { }

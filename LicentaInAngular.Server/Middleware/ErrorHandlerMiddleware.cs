@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Net;
-using System.Threading.Tasks;
 
 public class ErrorHandlerMiddleware
 {
@@ -23,7 +21,11 @@ public class ErrorHandlerMiddleware
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An unhandled exception has occurred.");
+            _logger.LogError(ex,
+                "Unhandled exception on {Method} {Path}. TraceIdentifier={TraceIdentifier}",
+                context.Request.Method,
+                context.Request.Path,
+                context.TraceIdentifier);
             await HandleExceptionAsync(context, ex);
         }
     }
@@ -37,7 +39,7 @@ public class ErrorHandlerMiddleware
         {
             StatusCode = context.Response.StatusCode,
             Message = "Internal Server Error. Please try again later.",
-            Detailed = exception.Message // Optional: Include detailed error message for debugging
+            Detailed = exception.Message
         };
 
         return context.Response.WriteAsJsonAsync(response);
