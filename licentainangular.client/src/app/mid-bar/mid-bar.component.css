@@ -4,8 +4,8 @@
 .mid-bar {
   width: 100%;
   background: #ffffff;
-  box-shadow: 0 4px 2px -2px rgba(0,0,0,.25);
-  padding: 0.6rem 0;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+  padding: 0.75rem 0;
   position: relative;
   z-index: 30;
 }
@@ -14,7 +14,7 @@
 .midbar-inner {
   max-width: 1600px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.25rem;
   display: flex;
   align-items: center;
   gap: 1.2rem;
@@ -24,6 +24,11 @@
 .logo img {
   height: 3.6rem;
   cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.logo:hover img {
+  transform: translateY(-1px);
 }
 
 /* === BARA DE CaUTARE === */
@@ -44,33 +49,37 @@
   flex: 1 1 0;
   min-width: 0;
   font-size: 1rem;
-  padding: 0.55rem 0.9rem;
-  border: 1.5px solid #cfcfcf;
+  padding: 0.68rem 1rem;
+  border: 1.5px solid #d9e2dc;
   border-right: none;
   border-radius: 1.8rem 0 0 1.8rem;
-  background: #f9f9f9;
-  transition: border-color .2s;
+  background: #f8faf9;
+  transition: border-color .2s, background .2s, box-shadow .2s;
 }
 
   .form-input:focus {
     outline: none;
-    border-color: #4caf50;
+    border-color: var(--brand-green);
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(47, 143, 70, 0.08);
   }
 
 /* buton search */
 .search-btn {
-  background: #4caf50;
+  background: var(--brand-green);
   color: #fff;
   border: none;
   padding: 0 1.3rem;
   border-radius: 0 1.8rem 1.8rem 0;
   font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: background .25s;
+  transition: background .25s, transform .2s;
 }
 
   .search-btn:hover {
-    background: #3e9c3f;
+    background: var(--brand-green-dark);
+    transform: translateY(-1px);
   }
 
 /* dropdown rezultate */
@@ -80,10 +89,11 @@
   left: 0;
   width: 100%;
   background: #ffffff;
-  border: 1px solid #dcdcdc;
-  border-radius: 0 0 1rem 1rem;
-  box-shadow: 0 6px 24px rgba(0,0,0,.1);
+  border: 1px solid #dde7e1;
+  border-radius: 1rem;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.13);
   z-index: 40;
+  overflow: hidden;
 }
 
 .scrollable-list {
@@ -96,10 +106,11 @@
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  padding: 0.35rem 0.25rem;
-  border-bottom: 1px solid #f0f0f0;
+  padding: 0.5rem 0.45rem;
+  border-bottom: 1px solid #eef2f7;
   cursor: pointer;
-  transition: background .15s;
+  border-radius: 0.65rem;
+  transition: background .15s, transform .15s;
 }
 
   .search-item:last-child {
@@ -107,7 +118,8 @@
   }
 
   .search-item:hover {
-    background: #e8ffe8;
+    background: #edf8ef;
+    transform: translateX(2px);
   }
 
 .product-image {
@@ -141,25 +153,27 @@
   align-items: center;
   gap: 0.9rem;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
   .actions a {
     display: flex;
     align-items: center;
     gap: 0.3rem;
-    padding: 0.25rem 0.6rem;
+    padding: 0.4rem 0.65rem;
     font-size: 1.02rem;
-    color: #222;
+    color: #26323f;
     text-decoration: none;
-    border-radius: 8px;
-    transition: background .18s, color .18s;
+    border-radius: 999px;
+    transition: background .18s, color .18s, transform .18s;
     white-space: nowrap;
     cursor: pointer;
   }
 
     .actions a:hover {
-      background: #4caf5020;
-      color: #409c1a;
+      background: rgba(47, 143, 70, 0.11);
+      color: var(--brand-green-dark);
+      transform: translateY(-1px);
     }
 
   .actions img {
@@ -194,6 +208,11 @@
 }
 
 @media (max-width: 800px) {
+  .midbar-inner {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .logo img {
     height: 2.5rem;
   }
@@ -205,6 +224,10 @@
   .actions a {
     font-size: 0.88rem;
     padding: 0.15rem 0.45rem;
+  }
+
+  .actions {
+    justify-content: center;
   }
 
   .role-label {

@@ -1,12 +1,12 @@
 
 .alert-success {
-  padding: 10px 20px;
-  background-color: #4CAF50; 
-  color: white;
-  border-radius: 4px;
+  padding: 10px 14px;
+  background-color: #ecfdf3; 
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
   font-size: 1rem;
   margin-bottom: 20px;
-  animation: fadeIn 1s ease, fadeOut 1s ease 5s forwards; 
 }
 
 /* 1. Animatii personalizate (keyframes) */
@@ -38,36 +38,34 @@
 
 /* 2. Container principal */
 .auth-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 150px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #ff4d4d 0%, #ff6666 100%); /* Red color gradient */
-  background-color: #ff4d4d; /* Red background */
-  animation: fadeIn 1.5s ease both;
+  padding: 2rem 1rem;
+  background: radial-gradient(circle at top right, rgba(47, 143, 70, 0.14), transparent 32%),
+    linear-gradient(180deg, #f8fbf9 0%, #eef4f0 100%);
+  animation: fadeIn 0.5s ease both;
 }
 
 /* 3. Cardul de login */
 .auth-card {
   background-color: #ffffff;
-  border-radius: 12px; 
-  padding: 40px 50px;
-  width: 450px; 
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease-in-out; 
+  border: 1px solid #e4ede7;
+  border-radius: 8px; 
+  padding: 34px 42px;
+  width: min(100%, 450px); 
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.1);
 }
-
-  .auth-card:hover {
-    transform: scale(1.05); 
-  }
 
   /* 4. Titlul */
   .auth-card h2 {
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #333;
+    color: #172033;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.9rem; 
+    font-size: 1.8rem; 
+    line-height: 1.2;
   }
 
 /* 5. Grupurile de formulare */
@@ -79,49 +77,49 @@
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #555;
+    color: #334155;
   }
 
   .form-group input,
   .form-group select {
     width: 100%;
     padding: 0.75rem 1rem; 
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #d9e2dc;
+    border-radius: 8px;
     outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
     box-sizing: border-box; 
     font-size: 1.1rem; 
+    background: #f8faf9;
   }
 
     .form-group input:focus,
     .form-group select:focus {
-      border-color: #ff4d4d;
-      box-shadow: 0 0 5px rgba(255, 77, 77, 0.4);
+      border-color: var(--brand-green);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(47, 143, 70, 0.12);
     }
 
 /* 6. Butonul de submit */
 .btn {
   display: inline-block;
   width: 100%;
-  background-color: #ff4d4d;
+  background-color: var(--brand-green);
   color: #fff;
   padding: 0.8rem 1.2rem; 
   margin-top: 1rem; 
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 1.2rem; 
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
   transition: background-color 0.3s, transform 0.2s;
 }
 
   .btn:hover {
-    background-color: #e60000;
+    background-color: var(--brand-green-dark);
     transform: translateY(-2px);
-    animation: pulseGlow 1s infinite;
   }
 
   .btn:active {
@@ -131,10 +129,14 @@
 
 /* 7. Error message style */
 .form-error-message {
-  color: red;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
   font-size: 1rem;
   text-align: center;
   margin-top: 15px;
+  padding: 0.75rem 1rem;
 }
 
 /* 8. Register Link */
@@ -153,14 +155,14 @@
   }
 
     .register-link a:hover {
-      color: #e60000;
+      color: var(--brand-green-dark);
     }
 /* Style for Role Information */
 .role-info {
   margin-top: 15px;
   padding: 10px;
   background-color: #f4f4f4;
-  border-left: 5px solid #ff4d4d;
+  border-left: 5px solid var(--brand-green);
   font-size: 1.2rem;
   text-align: center;
 }

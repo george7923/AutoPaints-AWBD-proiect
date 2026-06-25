@@ -19,66 +19,65 @@
 
 /* 2. Container principal */
 .auth-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 150px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); /* Gradient with purple/pink theme */
-  background-color: #f093fb; /* Purple-pink background */
+  padding: 2rem 1rem;
+  background: radial-gradient(circle at bottom left, rgba(255, 107, 53, 0.13), transparent 34%),
+    linear-gradient(180deg, #f8fbf9 0%, #eef4f0 100%);
 }
 
 /* 3. Cardul de register */
 .auth-card {
   background-color: #ffffff;
-  border-radius: 12px; /* Slightly larger border radius for a more rounded look */
-  padding: 40px 50px;
-  width: 450px; /* Increased width to make the form bigger */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-  transition: transform 0.3s ease-in-out; /* Smooth transition */
+  border: 1px solid #e4ede7;
+  border-radius: 8px;
+  padding: 34px 42px;
+  width: min(100%, 540px);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.1);
 }
-
-  /* Apply the scale effect when hovering */
-  .auth-card:hover {
-    transform: scale(1.05); /* Slightly larger scale on hover */
-  }
 
   /* 4. Titlul */
   .auth-card h2 {
     margin-bottom: 1.5rem;
     text-align: center;
-    color: #333;
+    color: #172033;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.9rem; /* Slightly larger font for the title */
+    font-size: 1.8rem;
+    line-height: 1.2;
   }
 
 /* 5. Grupurile de formulare */
 .form-group {
-  margin-bottom: 1.5rem; /* Increased margin for better spacing */
+  margin-bottom: 1.15rem;
 }
 
   .form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #555;
+    color: #334155;
   }
 
   .form-group input,
   .form-group select {
     width: 100%;
-    padding: 0.75rem 1rem; /* Increased padding for better input size */
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #d9e2dc;
+    border-radius: 8px;
     outline: none;
-    transition: border-color 0.3s;
-    box-sizing: border-box; /* Ensure proper width behavior */
-    font-size: 1.1rem; /* Slightly larger text */
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+    font-size: 1.05rem;
+    background: #f8faf9;
   }
 
     .form-group input:focus,
     .form-group select:focus {
-      border-color: #f093fb;
-      box-shadow: 0 0 5px rgba(240, 147, 251, 0.4);
+      border-color: var(--brand-green);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(47, 143, 70, 0.12);
     }
 
   /* Add specific style for 'select' to ensure dropdown visibility */
@@ -95,24 +94,22 @@
 .btn {
   display: inline-block;
   width: 100%;
-  background-color: #f093fb;
+  background-color: var(--brand-green);
   color: #fff;
-  padding: 0.8rem 1.2rem; /* Increased padding for better button size */
-  margin-top: 1rem; /* Increased top margin */
+  padding: 0.8rem 1.2rem;
+  margin-top: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1.2rem; /* Slightly larger font for better readability */
+  font-size: 1.1rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
   transition: background-color 0.3s, transform 0.2s;
 }
 
   .btn:hover {
-    background-color: #d97bd5;
+    background-color: var(--brand-green-dark);
     transform: translateY(-2px);
-    animation: pulseGlow 1s infinite;
   }
 
   .btn:active {
@@ -136,13 +133,17 @@
   }
 
     .login-link a:hover {
-      color: #d97bd5;
+      color: var(--brand-green-dark);
     }
 
 /* 8. Error message style */
 .form-error-message {
-  color: red;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
   font-size: 1rem;
   text-align: center;
   margin-top: 15px;
+  padding: 0.75rem 1rem;
 }

@@ -15,20 +15,20 @@
     <!-- Product Details -->
     <div class="product-details">
       <div class="product-detail">
-        <label>Price:</label>
+        <label>Pret:</label>
         <span>{{ product.Pret | currency:'RON' }}</span>
       </div>
       <div class="product-detail">
-        <label>Category:</label>
+        <label>Categorie:</label>
         <span>{{ product.Categorie || 'N/A' }}</span>
       </div>
       <div class="product-detail">
-        <label>Is Spray:</label>
+        <label>Tip spray:</label>
         <span>{{ product.EsteSprayText }}</span>
       </div>
       <div class="product-detail">
-        <label>Availability:</label>
-        <span>{{ product.Valabil ? 'Available' : 'Not available' }}</span>
+        <label>Disponibilitate:</label>
+        <span>{{ product.Valabil ? 'Disponibil' : 'Indisponibil' }}</span>
       </div>
       <div class="product-detail">
         <label>Total Produse Disponibile:</label>

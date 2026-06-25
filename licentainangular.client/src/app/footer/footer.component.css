@@ -1,24 +1,19 @@
 /* ===== PALETA FIXA ===== */
 .footer {
-  background-color: #252525 !important; /* gri inchis */
+  background-color: #1f2933 !important; /* gri inchis */
   color: #ffffff; /* text alb  */
-  padding: 2.5rem 1rem;
+  padding: 2.8rem 1.25rem;
   font-size: 0.9rem;
   line-height: 1.55;
-  transition: filter 0.25s ease;
+  border-top: 4px solid var(--brand-green);
 }
-
-
-  .footer:hover {
-    filter: brightness(1.07);
-  }
 
 /* ===== GRID ===== */
 .footer__grid {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  gap: 2.4rem;
+  gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
@@ -30,15 +25,18 @@
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 1rem;
+  color: #ffffff;
 }
 
 .footer__subtitle {
   font-weight: 600;
   margin: 0.9rem 0 0.15rem;
+  color: #e5f3e9;
 }
 
 .footer__text {
   margin: 0.15rem 0;
+  color: #d6dde5;
 }
 
 .footer__list {
@@ -55,11 +53,13 @@
 .footer__link {
   color: #d7d7d7;
   text-decoration: none;
-  transition: color 0.2s ease;
+  border-radius: 6px;
+  transition: color 0.2s ease, background 0.2s ease;
 }
 
   .footer__link:hover {
     color: #ffffff;
+    background: rgba(255, 255, 255, 0.08);
   }
 
 /* ===== SIGLE ANPC ===== */
@@ -74,7 +74,7 @@
     height: 55px;
     width: auto;
     object-fit: contain;
-    filter: grayscale(45%) brightness(0.9);
+    filter: grayscale(25%) brightness(0.95);
     transition: transform 0.25s ease, filter 0.25s ease;
   }
 

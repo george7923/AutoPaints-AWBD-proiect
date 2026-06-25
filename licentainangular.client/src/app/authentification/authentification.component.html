@@ -1,6 +1,6 @@
 <div class="auth-container">
   <div class="auth-card">
-    <h2>Login to Car Painting Store</h2>
+    <h2>Autentificare AutoPaints</h2>
 
     <!-- Success message display -->
     <div *ngIf="successMessage" class="alert-success">
@@ -11,35 +11,35 @@
     <form (ngSubmit)="onSubmit()">
       <!-- Username -->
       <div class="form-group">
-        <label for="username">Username</label>
+        <label for="username">Nume de utilizator</label>
         <input type="text"
                id="username"
                class="form-control"
                [(ngModel)]="Username"
                name="username"
                required
-               placeholder="Enter your username" />
+               placeholder="Introdu numele de utilizator" />
       </div>
 
       <!-- Password -->
       <div class="form-group">
-        <label for="password">Password</label>
+        <label for="password">Parola</label>
         <input type="password"
                id="password"
                class="form-control"
                [(ngModel)]="Password"
                name="password"
                required
-               placeholder="Enter your password" />
+               placeholder="Introdu parola" />
       </div>
 
       <!-- Submit Button -->
-      <button type="submit" class="btn">Login</button>
+      <button type="submit" class="btn">Autentificare</button>
     </form>
 
     <!-- Display Role (if logged in) -->
     <div *ngIf="Role" class="role-info">
-      <p>Logged in as: <strong>{{ Role }}</strong></p>
+      <p>Autentificat ca: <strong>{{ Role }}</strong></p>
     </div>
 
     <!-- Display error message below the form -->
@@ -48,7 +48,7 @@
     </div>
 
     <p class="register-link">
-      Don't have an account? <a routerLink="/register">Register</a>
+      Nu ai cont? <a routerLink="/register">Inregistrare</a>
     </p>
     <p class="register-link">
       <a (click)="toggleForgotPassword()" style="cursor:pointer;">Ai uitat parola?</a>

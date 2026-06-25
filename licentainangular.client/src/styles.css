@@ -3,6 +3,41 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --brand-green: #2f8f46;
+  --brand-green-dark: #237339;
+  --brand-orange: #ff6b35;
+  --ink: #1f2937;
+  --muted: #64748b;
+  --surface: #ffffff;
+  --page-bg: #f6f8fb;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--ink);
+  font-family: "Source Sans Pro", Arial, sans-serif;
+}
+
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(255, 107, 53, 0.35);
+  outline-offset: 3px;
+}
+
 .top-bar {
   @apply bg-gray-100 py-2;
 }
