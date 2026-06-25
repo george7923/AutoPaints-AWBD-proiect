@@ -73,7 +73,7 @@ export class ProductComponent implements OnInit {
                   this.totalSubproduseDisponibile = count;
                   console.log(`Subproduse disponibile pt produs ${this.product.ProdusId}:`, count);
                   if (count < 1) {
-                    this.errorMessage = "Nu sunt disponibile subproduse pentru acest produs.";
+                    this.errorMessage = "Acest produs nu este disponibil momentan.";
                   }
                 },
                 error: (err: any) => {
@@ -212,7 +212,7 @@ export class ProductComponent implements OnInit {
     this.cosService.addSubproduseToCart(idCos, idProdus, quantity, userId).subscribe({
       next: (response: any) => {
         console.log(`✅ ${quantity} subproduse adăugate în coșul ${idCos}.`);
-        this.successMessage = response.Message || `Am adăugat ${quantity} subproduse în coș.`;
+        this.successMessage = response.Message || `Am adăugat ${quantity} produse în coș.`;
         setTimeout(() => {
           // Poti redirectiona catre cos, catalog, etc.:
           this.router.navigate(['/catalog']);

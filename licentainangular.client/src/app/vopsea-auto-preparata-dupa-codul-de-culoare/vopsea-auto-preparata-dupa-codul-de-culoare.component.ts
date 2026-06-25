@@ -80,7 +80,7 @@ export class VopseaAutoPreparataDupaCodulDeCuloareComponent implements OnInit {
         this.debugLogs.push("Răspuns primit de la server:");
         this.debugLogs.push(JSON.stringify(response));
 
-        this.msg = `Succes! ID Vopsea = ${response.idVopsea}, Produs = ${response.idProdus}, Subproduse in cos: ${response.subproduseCreateInCos}`;
+        this.msg = `Succes! vopselele adăugate în coș!`;
         this.msgColor = 'green';
 
         this.debugLogs.push("Vopsea creată + subproduse adăugate în cos = " + response.idCos);
